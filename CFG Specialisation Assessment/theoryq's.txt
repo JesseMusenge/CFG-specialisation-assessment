@@ -1,0 +1,80 @@
+Section 1: Theory Questions
+
+1.1:
+Collections library
+
+1.2:
+The first difference is in connectedness and cycles. Trees do not contain any cycles (loops) 
+whereas Graphs can have cycles (cyclic graphs) or not (acyclic graphs). Also, in a tree there is a unique path 
+between any two nodes and so it is connected, meaning there is a path between any two nodes in the tree. 
+However, a graph can also have disconnected components (sets of nodes that are not connected to each other). 
+Secondly, a tree has a single root node that serves as the starting point, whereas graphs do not have 
+a concept of a single root node.
+
+1.3
+Time complexity is the amount of time an algorithm takes to complete its execution as a function of the input size. 
+It’s a measure of how the runtime of an algorithm grows with increasing input. It is expressed using Big O notation, 
+which provides an upper bound on the growth rate of an algorithm's runtime. 
+For example, O(1) is constant time complexity, which means the algorithm's runtime does not depend on the input size.
+
+Space complexity refers to the amount of memory an algorithm uses to complete its execution as a function of the input size. 
+It represents the maximum amount of memory required by an algorithm during its execution. 
+Similar to time complexity is also expressed using the Big O notation. 
+For example, O(1) is constant space complexity, which represents how the algorithm uses a fixed amount of memory regardless of the input size.
+
+1.4
+Bubble Sort is a simple sorting algorithm that repeatedly steps through the list, compares adjacent elements, 
+and swaps them if they are in the wrong order. The pass through the list is repeated until no swaps are needed, 
+which is when the list is now sorted.
+
+At the end of each pass, the largest (or smallest, depending on the sorting order) element gets placed in its 
+correct position. This guarantees that after the first pass, the largest element will be in the last position of the list. 
+
+Bubble Sort has an average and worst-case time complexity of O(n^2), where 'n' is the number of elements in the list. 
+This makes it inefficient for large lists, as its quadratic time complexity results in a lot of comparisons and swaps. 
+In terms of space complexity, Bubble Sort requires O(1) extra space since it performs comparisons and swaps in 
+lace without requiring additional data structures. 
+
+1.5
+LIFO and FIFO refer to ways we can manage data within data structures, specifically in the context of stacks and queues.
+
+LIFO (Last-In, First-Out) is a principle where the last element added to a data structure is the first one to be removed. 
+It's analogous to a stack of items where you place new items on top, and when you need to remove an item, you take the 
+one from the top. The most recently added element is the one that is accessed next. LIFO can be applied to lists in python. 
+The append() method is used to add elements to the end of the list (push operation), and the pop() method without any 
+index specified is used to remove and return the last element (pop operation).
+
+FIFO (First-In, First-Out) is where the first element added to a data structure is the first one to be removed. 
+It's similar to a queue where you can add items to the back of the queue and remove items from the front. 
+The oldest element is the one that is accessed next. In practice, the deque data structure from the collections module 
+is commonly used to implement a FIFO structure. The append() method is used to enqueue (add) elements to the end of the 
+deque, and the popleft() method is used to dequeue (remove and return) elements from the front of the deque.
+
+1.6
+A Balanced Binary Tree is a type of binary tree data structure that follows three conditions. Firstly, the height of 
+the left and right tree for any node does not differ by more than 1.Secondly, The left subtree of that node is also 
+balanced. Finally, the right subtree of that node is also balanced. A single node is always balanced. This means the 
+tree is structured so that it remains balanced and doesn't become skewed towards one side, helping to maintain efficient 
+operations like searching, insertion, and deletion.
+
+The best root for a balanced binary tree depends on the use case and the data being stored. 
+In an ideal balanced binary tree, the root would be chosen such that it provides roughly equal numbers of nodes in its 
+left and right subtrees, ensuring that the tree remains balanced during operations.
+
+Below presents an example of a balanced binary tree:
+
+     10
+    /    \
+   5     15
+  / \    / \
+ 3   7  13  18
+
+If we were to search for the value 13 in this tree:
+We would start at the root node, which is 10.
+We compare 12 with the value of the root (10). Since 13 is greater than 10, we move to the right subtree.
+This brings us to the node with the value 15. Next we compare 13 with 15. Since 13 is less than 15, we move to 
+the left subtree.Finally, this brings us to the node with the value 13. We found the value we were looking for.
+
+The search process in a balanced binary tree is efficient because at each step, we are able to eliminate half of the 
+remaining nodes due to the balanced structure of the tree. This makes the search operation have a time complexity of 
+O(log n), where 'n' is the number of nodes in the tree.

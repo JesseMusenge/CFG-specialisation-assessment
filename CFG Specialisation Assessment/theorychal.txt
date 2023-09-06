@@ -1,0 +1,106 @@
+3.1
+Hash Function:
+A simple hash function can convert a key (like a string or a number) into an index 
+where the associated value will be stored in an array (the hash table).
+
+String Key Hashing: For a string key, one of the simplest hash functions is to sum the 
+ASCII values of all characters in the key and then take the remainder when divided 
+by the table size. Like this:
+\( \text{Hash}(key) = (\Sigma_{i=0}^{n-1} \text{ord}(key[i])) \mod \text{TableSize} \)
+  
+Integer Key Hashing: For integer keys, the hash function can be simpler, like taking 
+the remainder of the key divided by the table size:
+\( \text{Hash}(key) = key \mod \text{TableSize} \)
+
+Memory Constraints:
+To minimise memory usage, start with a small table size. As the table fills up, 
+you resize it to maintain efficient operations. The best strategy is to double the table
+size and rehash all existing keys whenever the table reaches a certain load factor (e.g., 75% full) - this means to dynamically grow when load factor increases and shrink when load factor decreases
+
+How to handle collisions: 
+1. Separate Chaining: this means making each cell in the hash table point to a linked list. 
+All elements that hash to the same index are stored in the same linked list.
+  
+2. Open Addressing: Finding the next open slot within the array itself. This can be done 
+using linear probing, quadratic probing, or double hashing.
+
+Step by step:
+1. Initialisation: Start with an empty hash table of a certain size, usually a prime 
+number to help distribute keys more uniformly.
+  
+2. Insertion: Use the hash function to find an index for the new key. If a collision happens, 
+use one of the collision-handling strategies.
+  
+3. Retrieval: Use the hash function to find the index where the key should be and then 
+use the collision-handling method to find the actual key-value pair.
+  
+4. Deletion: Similar to retrieval, but remove the key-value pair once found.
+
+5. Resizing: When the table reaches a certain load factor, resize it and rehash all existing keys.
+
+
+
+3.2
+Without hash collisions, each of the above operations (insertion, retrieval, and deletion)
+can be performed in constant time, which is more efficient. We will begin by assuming a 
+string is the key and an integer is the value:
+
+Initialization (`__init__`):
+Initialise an empty hash table with a fixed size - this sets up the "lunchbox" where you'll
+store your key-value pairs. Each compartment in the lunchbox is empty at the start.
+
+Hash Function (`hash_function`):
+1. Whenever you want to store, retrieve, or remove a key-value pair, first you figure out 
+which compartment (index) to look in. 
+2. Apply the hash function to the key. For a string, this could mean summing up 
+the ASCII values of its characters and taking the remainder when divided by the table size.
+
+Insertion (`insert`):
+1. As an example, we decide to store the value `2` with the key "grape". 
+2. Now we pass "grape" to the hash function to get an index.
+3. Since there's no collision (the compartment is empty), we just place the 
+key-value pair `("grape", 2)` directly in that compartment.
+
+Retrieval (`retrieve`):
+If we later want to know what value is stored with the key "grape," we can pass "grape"to the 
+hash function to get an index. This will find the pair ("grape", 2), and return the value `2`.
+
+Deletion (`remove`):
+If we decide we no longer want to store anything with the key "grape,” we can pass "grape" 
+to the hash function to get an index. Next we look in that compartment, find the pair 
+("grape", 2), and remove it.
+
+No resizing or rehashing:
+Finally, there is no need to resize since there's no collision and we're not reaching 
+the maximum capacity of the hash table.
+
+
+
+3.3
+This situation will require some of the collision-handling strategies listed above in question 3.1 
+(separate chaining). We would still be able to successfully insert, retrieve, and delete any 
+key-value pairs. The Initialization (`__init__`) and Hash Function steps remain the same as listed 
+in Question 3.2. The first difference in this scenarios is in first and second insertions:
+
+First Insertion (`insert` for Key1):
+1. As an example, we insert a key-value pair ("grape", 1).
+2. The hash function will convert "grape" into a specific index. Let's say the index is `3`.
+3. Since compartment 3 is empty, you insert the key-value pair `("grape", 1)` there with no issues.
+
+Second Insertion (`insert` for Key2 with Collision):
+1. Now we insert another key-value pair, let's say `("orange", 2)`.
+2. In this case, the hash function also converts "orange" into the same index `3`.
+3. The issue is we already have `("grape", 1)` in that same compartment: a hash collision.
+
+Handling the Collision With Separate Chaining: 
+Rather than replacing `("grape", 1)`, we can add `("orange", 2)` to the same compartment. 
+The compartment at index `3` will now contain a list of key-value pairs: `[("grape", 1), ("orange", 2)]`.
+
+Retrieval with Collision (`retrieve`):
+If we want to retrieve the value associated with the key "orange", we would pass "orange" through 
+the hash function and get index `3`. This is because checking the compartment at index `3` would show a list of key-value pairs. In this list, we would find `("orange", 2)` and return the value `2`.
+
+Deletion with Collision (`remove`):
+To remove the key-value pair with the key "orange", we would pass "orange" through the hash 
+function and get index `3`. Next we would go to the compartment at index `3` and find a list of 
+key-value pairs. In this list, we would find `("orange", 2)`, and remove it.
